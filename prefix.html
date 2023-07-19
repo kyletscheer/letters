@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .content {
+        padding: 100px;
+        text-align: left;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Words with Shared Prefixes</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"
+    />
+    <script>
+      $(document).ready(function () {
+        $.ajax({
+          url: "dictionary.json",
+          dataType: "json",
+          success: function (data) {
+            processDictionaryData(data);
+            initDataTable();
+          },
+          error: function () {
+            console.error(
+              "Failed to fetch dictionary data from dictionary.php."
+            );
+          },
+        });
+
+        function processDictionaryData(dictionaryArray) {
+          var comboArray = [""];
+          var masterArray = [["", "", ""]];
+          var processCount = 0;
+
+          for (var i = 0; i < dictionaryArray.length; i++) {
+            if (dictionaryArray[i].length > 9) {
+              for (var j = 10; j < dictionaryArray[i].length; j++) {
+                var string = dictionaryArray[i].substr(0, j + 1);
+                if (comboArray.indexOf(string) !== -1) {
+                  var keyNumber = comboArray.indexOf(string);
+                  masterArray[keyNumber][1] += dictionaryArray[i] + ", ";
+                  masterArray[keyNumber][2] += 1;
+                  processCount++;
+                } else {
+                  comboArray.push(string);
+                  var keyNumber = comboArray.indexOf(string);
+                  masterArray[keyNumber] = [string, " ", 1];
+                  masterArray[keyNumber][1] += dictionaryArray[i] + ", ";
+                  processCount++;
+                }
+              }
+            }
+          }
+
+          // Display the process count (optional)
+          $("#processCount").text(processCount);
+
+          // Populate the DataTables table with the processed data
+          var tableBody = $("#resultstable tbody");
+          var tableHTML = "";
+
+          for (var i = 0; i < masterArray.length; i++) {
+            tableHTML +=
+              "<tr><td>" +
+              masterArray[i][0] +
+              "</td><td>" +
+              masterArray[i][1] +
+              "</td><td>" +
+              masterArray[i][2] +
+              "</td><td>" +
+              masterArray[i][0].length +
+              "</td></tr>";
+          }
+
+          tableBody.html(tableHTML);
+        }
+
+        function initDataTable() {
+          $("#resultstable").DataTable({
+            dom: "Bfrtip",
+            buttons: ["copyHtml5", "excelHtml5", "csvHtml5"],
+            order: [[2, "desc"]],
+            language: {
+              loadingRecords: "Loading data...",
+              zeroRecords: "No data available in table",
+            },
+          });
+        }
+      });
+    </script>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Playing With Letters</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="lettercount.html">Letter Count</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lettercountwords.html"
+                >Letter Count with Words</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="prefix.html">Common Prefixes</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="content">
+      <h1>Words with Shared Prefixes</h1>
+      <p>
+        The words that have shared prefixes over 10 letters (the page takes too
+        long to load with less).
+      </p>
+      <h4>Process Count: <span id="processCount">Loading...</span></h4>
+      <table class="table display" id="resultstable">
+        <thead>
+          <th>Letters</th>
+          <th>Successful Combinations</th>
+          <th># of Successful Combinations</th>
+          <th># of letters</th>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <footer class="bg-dark fixed-bottom p-2">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          &copy;
+          <a href="http://www.kylescheer.com" rel="noopener" target="_blank"
+            >Kyle Scheer</a
+          >
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            style="margin-left: 20px"
+          >
+            <a
+              href="https://github.com/kyletscheer/letter-combos"
+              rel="noopener"
+              target="_blank"
+              >View Code</a
+            >
+          </button>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
