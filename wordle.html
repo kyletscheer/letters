@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordle Letter Frequency Analysis</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .content {
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Wordle Letter Frequency Analysis</h1>
+    <p>
+      This page analyzes English words to help optimize your guesses for the game <strong>Wordle</strong>. 
+      It calculates the most frequent letters in 5-letter words and analyzes how often each letter appears 
+      in specific positions.
+    </p>
+
+    <h2>Letter Frequency in 5-Letter Words</h2>
+    <table id="frequencyTable" class="display">
+      <thead>
+        <tr>
+          <th>Letter</th>
+          <th>Frequency</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Letter Position Frequency in 5-Letter Words</h2>
+    <table id="positionTable" class="display">
+      <thead>
+        <tr>
+          <th>Letter</th>
+          <th>Position 1</th>
+          <th>Position 2</th>
+          <th>Position 3</th>
+          <th>Position 4</th>
+          <th>Position 5</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>&copy; <a href="http://www.kylescheer.com" target="_blank">Kyle Scheer</a></p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        // Fetch the JSON data
+        const response = await fetch("dictionary.json");
+        const words = await response.json();
+
+        // Filter for 5-letter words
+        const fiveLetterWords = words.filter(word => word.length === 5);
+
+        // Initialize frequency counters
+        const alphabet = "abcdefghijklmnopqrstuvwxyz";
+        const letterFrequency = Object.fromEntries([...alphabet].map(letter => [letter, 0]));
+        const positionFrequency = [...Array(5)].map(() => Object.fromEntries([...alphabet].map(letter => [letter, 0])));
+
+        // Calculate frequencies
+        fiveLetterWords.forEach(word => {
+          [...word].forEach((letter, index) => {
+            if (letterFrequency[letter] !== undefined) letterFrequency[letter]++;
+            if (positionFrequency[index] && positionFrequency[index][letter] !== undefined) {
+              positionFrequency[index][letter]++;
+            }
+          });
+        });
+
+        // Populate the frequency table
+        const frequencyTable = document.querySelector("#frequencyTable tbody");
+        Object.entries(letterFrequency)
+          .sort(([, aFreq], [, bFreq]) => bFreq - aFreq)
+          .slice(0, 15)
+          .forEach(([letter, frequency]) => {
+            const row = `<tr><td>${letter}</td><td>${frequency}</td></tr>`;
+            frequencyTable.innerHTML += row;
+          });
+
+        // Populate the position table
+        const positionTable = document.querySelector("#positionTable tbody");
+        alphabet.split("").forEach(letter => {
+          const row = `<tr>
+            <td>${letter}</td>
+            ${positionFrequency.map(posFreq => `<td>${posFreq[letter]}</td>`).join("")}
+          </tr>`;
+          positionTable.innerHTML += row;
+        });
+
+        // Initialize DataTables
+        $("#frequencyTable").DataTable({ dom: "Bfrtip", buttons: ["copy", "csv", "excel"] });
+        $("#positionTable").DataTable({ dom: "Bfrtip", buttons: ["copy", "csv", "excel"] });
+      } catch (error) {
+        console.error("Error loading or processing data:", error);
+      }
+    });
+  </script>
+</body>
+</html>
