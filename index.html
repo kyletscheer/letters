@@ -1,149 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1BBLZ2TCQK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BBLZ2TCQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-1BBLZ2TCQK');
-</script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="UTF-8" />
+    gtag('config', 'G-1BBLZ2TCQK');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
 
-    <title>Playing With Letters</title>
-    <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
+  <title>Playing With Letters</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+    rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
 
-      .content {
-        padding: 100px;
-        text-align: center;
-      }
-    </style>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  </head>
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">Playing With Letters</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarResponsive"
-          aria-controls="navbarResponsive"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Playing with Letters</a>
+
+      <!-- Navbar actions container for mobile -->
+      <div class="navbar-actions">
+        <!-- Theme toggle moved outside collapse -->
+        <div class="theme-toggle" id="themeToggle" role="button" aria-label="Toggle theme">
+          <i class="bi bi-sun-fill"></i>
+        </div>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+          aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="lettercount.html">Letter Count</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="lettercountwords.html"
-                >Letter Count with Words</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="prefix.html">Common Prefixes</a>
-            </li>
-          </ul>
-        </div>
       </div>
-    </nav>
-    <div class="content">
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">Playing with Words and Letters</h1>
-          <p>
-            Some random tools to see what makes up a word. You can see the 61336
-            words that make up the dictionary I use
-            <a href="dictionary.json" target="_blank" rel="noopener">here</a>.
-          </p>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card" style="width: 18rem">
-              <div class="card-body">
-                <h5 class="card-title">Letter Count</h5>
-                <p class="card-text">
-                  Counts the number of letters per English word, and throws it
-                  in a table.
-                </p>
-                <a href="lettercount.html" class="btn btn-primary"
-                  >See It In Action</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card" style="width: 18rem">
-              <div class="card-body">
-                <h5 class="card-title">Letter Count with Words</h5>
-                <p class="card-text">
-                  Counts the number of letters per English word, and throws it
-                  in a table. Includes the words too.
-                </p>
-                <a href="lettercountwords.html" class="btn btn-primary"
-                  >Take Me There</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card" style="width: 18rem">
-              <div class="card-body">
-                <h5 class="card-title">Words with Common Prefixes</h5>
-                <p class="card-text">
-                  Looks at the number of words that share the same prefix
-                  letters.
-                </p>
-                <a href="prefix.html" class="btn btn-primary">Check it Out</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr />
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="lettercount.html">Letter Count</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lettercountwords.html">Letter Count with Words</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="prefix.html">Common Prefixes</a>
+          </li>
+        </ul>
       </div>
     </div>
-    <footer class="bg-dark fixed-bottom p-2">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-          &copy;
-          <a href="http://www.kylescheer.com" rel="noopener" target="_blank"
-            >Kyle Scheer</a
-          >
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            style="margin-left: 20px"
-          >
-            <a
-              href="https://github.com/kyletscheer/letters"
-              rel="noopener"
-              target="_blank"
-              >View Code</a
-            >
-          </button>
-        </p>
+  </nav>
+  <!-- Main Content -->
+  <main class="py-5">
+    <div class="container">
+      <h1 class="display-3">Playing with Words and Letters</h1>
+      <p>
+        Some random tools to see what makes up a word. You can see the 61336
+        words that make up the dictionary I use
+        <a href="dictionary.json" target="_blank" rel="noopener">here</a>.
+      </p>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title">Letter Count</h5>
+              <p class="card-text">
+                Counts the number of letters per English word, and throws it
+                in a table.
+              </p>
+              <a href="lettercount.html" class="btn btn-primary">See It In Action</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title">Letter Count with Words</h5>
+              <p class="card-text">
+                Counts the number of letters per English word, and throws it
+                in a table. Includes the words too.
+              </p>
+              <a href="lettercountwords.html" class="btn btn-primary">Take Me There</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title">Words with Common Prefixes</h5>
+              <p class="card-text">
+                Looks at the number of words that share the same prefix
+                letters.
+              </p>
+              <a href="prefix.html" class="btn btn-primary">Check it Out</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </footer>
-  </body>
+      <hr />
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-white border-top py-4 mt-auto">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          Made by <a href="https://www.kylescheer.com" target="_blank">Kyle Scheer</a>
+        </div>
+        <a href="https://github.com/kyletscheer/letters" target="_blank">View Code</a>
+      </div>
+    </div>
+  </footer>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="darkmode.js"></script>
+</body>
+
 </html>

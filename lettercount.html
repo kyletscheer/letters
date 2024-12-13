@@ -25,28 +25,15 @@
         text-align: left;
       }
     </style>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+ <!-- Bootstrap CSS -->
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+ <!-- Bootstrap Icons -->
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+   rel="stylesheet">
+ <link href="style.css" rel="stylesheet">
+ <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -128,40 +115,42 @@
     </script>
   </head>
   <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">Playing With Letters</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarResponsive"
-          aria-controls="navbarResponsive"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="lettercount.html">Letter Count</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="lettercountwords.html"
-                >Letter Count with Words</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="prefix.html">Common Prefixes</a>
-            </li>
-          </ul>
-        </div>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">Playing with Letters</a>
+
+    <!-- Navbar actions container for mobile -->
+    <div class="navbar-actions">
+      <!-- Theme toggle moved outside collapse -->
+      <div class="theme-toggle" id="themeToggle" role="button" aria-label="Toggle theme">
+        <i class="bi bi-sun-fill"></i>
       </div>
-    </nav>
-    <div class="content">
-      <h1>Letter Count Per Word</h1>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="lettercount.html">Letter Count</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="lettercountwords.html">Letter Count with Words</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="prefix.html">Common Prefixes</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Main Content -->
+<main class="py-5">
+  <div class="container">
+      <h1 class="display-3">Letter Count Per Word</h1>
       <p>The number of letters in each word of the English dictionary.</p>
       <h4>
         Number of Dictionary Words: <span id="wordCount">Loading...</span>
@@ -178,27 +167,20 @@
         </table>
       </div>
     </div>
-    <footer class="bg-dark fixed-bottom p-2">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-          &copy;
-          <a href="http://www.kylescheer.com" rel="noopener" target="_blank"
-            >Kyle Scheer</a
-          >
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            style="margin-left: 20px"
-          >
-            <a
-              href="https://github.com/kyletscheer/letters"
-              rel="noopener"
-              target="_blank"
-              >View Code</a
-            >
-          </button>
-        </p>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-white border-top py-4 mt-auto">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          Made by <a href="https://www.kylescheer.com" target="_blank">Kyle Scheer</a>
+        </div>
+        <a href="https://github.com/kyletscheer/letters" target="_blank">View Code</a>
       </div>
-    </footer>
+    </div>
+  </footer>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="darkmode.js"></script>
   </body>
 </html>
